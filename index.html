@@ -8,7 +8,31 @@
     <script src="js/Model.js"></script>
     <script src="js/Controller.js"></script>
     <title>Hra Přesouvačka</title>    
-    
+    <style>
+        body {
+            text-align: center;
+        }
+        #grid {
+            margin: 50px;
+            display: grid;
+            grid-template-columns: 40px 40px 40px 40px; 
+            place-items: center;            
+        }
+
+        .stone {
+            width: 20px;
+            height: 20px;
+            padding: 10px;
+            text-align: center;
+            border: 1px solid black;
+        }
+        .stone:hover {
+            background-color: rgb(255, 173, 66);
+        }
+        .stone.empty {
+            background-color: gray;
+        }
+    </style>
 </head>
 <body>
     <h1>Hra přesouvačka</h1>
@@ -17,6 +41,8 @@
     </div>
 </body>
 <script>
-    const view = new View("grid");        
+    const view = new View("grid");
+    const model = new Model(4);
+    const contr = new Controller(model,view);        
 </script>
 </html>
