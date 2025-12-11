@@ -5,6 +5,7 @@ error_reporting(E_ALL);
 
 session_start();
 require_once 'includes/db.php';
+$user_role = $_SESSION['role'] ?? 'user';
 
 // Kontrola přihlášení
 if (!isset($_SESSION['user_id'])) {
@@ -20,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $starting_price = $_POST["starting_price"] ?? 0;
     $image_url = trim($_POST["image_url"] ?? "");
 
-    // Uprava formatu end_time
+    // Úprava formátu end_time
     if ($end_time) {
         $end_time = str_replace("T", " ", $end_time) . ":00";
     }
@@ -63,7 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body class="bg-light p-3">
 <nav class="navbar navbar-expand-lg navbar-dark bg-success">
   <div class="container">
-    <a class="navbar-brand" href="index.php">🌿 PlantBid</a>
+    <a class="navbar-brand" href="index.php">🪴 PlantBid</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
       aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -71,11 +72,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
         <?php if (isset($_SESSION['user_id'])): ?>
-          <li class="nav-item"><a class="nav-link" href="#">Přihlášen jako <?php echo htmlspecialchars($_SESSION['username']); ?></a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Přihlášen jako <?php echo htmlspecialchars($_SESSION['username']); ?> (<?php echo htmlspecialchars($user_role); ?>)</a></li>
           <li class="nav-item"><a class="nav-link" href="logout.php">Odhlásit se</a></li>
         <?php else: ?>
           <li class="nav-item"><a class="nav-link" href="login.php">Přihlásit se</a></li>
           <li class="nav-item"><a class="nav-link" href="register.php">Registrovat</a></li>
+        <?php endif; ?>
+        <?php if (isset($_SESSION['user_id']) && $user_role === 'admin'): ?>
+          <li class="nav-item"><a class="nav-link" href="admin.php">Admin</a></li>
         <?php endif; ?>
         <li class="nav-item"><a class="nav-link" href="archive.php">Archiv</a></li>
         <li class="nav-item"><a class="nav-link" href="new_auction.php">Přidat aukci</a></li>
@@ -114,7 +118,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 
     <div class="mb-3">
-      <label for="image" class="form-label">Obrázek (volitelný)</label>
+      <label for="image" class="form-label">Obrázek (volitelné)</label>
       <input type="file" class="form-control" id="image" name="image" accept="image/*">
     </div>
 
@@ -128,19 +132,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       const urlInput = document.getElementById('image_url');
 
       fileInput.addEventListener('change', () => {
-        if (fileInput.files.length > 0) {
-          urlInput.disabled = true;
-        } else {
-          urlInput.disabled = false;
-        }
+        urlInput.disabled = fileInput.files.length > 0;
       });
 
       urlInput.addEventListener('input', () => {
-        if (urlInput.value.trim() !== '') {
-          fileInput.disabled = true;
-        } else {
-          fileInput.disabled = false;
-        }
+        fileInput.disabled = urlInput.value.trim() !== '';
       });
     </script>
 

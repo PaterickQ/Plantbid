@@ -90,6 +90,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <li class="nav-item"><a class="nav-link" href="login.php">Přihlásit se</a></li>
           <li class="nav-item"><a class="nav-link" href="register.php">Registrovat</a></li>
         <?php endif; ?>
+        <?php if (isset($_SESSION['user_id']) && $user_role === 'admin'): ?>
+          <li class="nav-item"><a class="nav-link" href="admin.php">Admin</a></li>
+        <?php endif; ?>
         <li class="nav-item"><a class="nav-link" href="archive.php">Archiv</a></li>
         <li class="nav-item"><a class="nav-link" href="new_auction.php">Přidat aukci</a></li>
         <li class="nav-item"><a class="nav-link" href="my_auctions.php">Moje aukce</a></li>

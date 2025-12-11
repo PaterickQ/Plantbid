@@ -8,6 +8,7 @@ if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
     exit;
 }
 
+$user_role = $_SESSION['role'] ?? 'user';
 $auction_id = (int)$_GET['id'];
 
 // Zpracování příhozu, pokud uživatel posílá POST (musí být přihlášen)
@@ -19,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $bid_amount = floatval($_POST['bid_amount']);
     $user_id = $_SESSION['user_id'];
 
-    // Zjistíme aktuální nejvyšší příhoz
+    // Zjistíme aktuálně nejvyšší příhoz
     $stmt = $conn->prepare("SELECT MAX(amount) AS max_bid FROM bids WHERE auction_id = ?");
     $stmt->bind_param("i", $auction_id);
     $stmt->execute();
@@ -38,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     if ($bid_amount <= $current_max) {
-        $error = "Příhoz musí být vyšší než aktuální nejvyšší cena (" . number_format($current_max, 2, ',', ' ') . " Kč).";
+        $error = "Příhoz musí být vyšší než aktuálně nejvyšší cena (" . number_format($current_max, 2, ',', ' ') . " Kč).";
     } else {
         // Vložit nový příhoz
         $stmt3 = $conn->prepare("INSERT INTO bids (auction_id, user_id, amount, bid_time) VALUES (?, ?, ?, NOW())");
@@ -65,7 +66,7 @@ if (!$auction) {
     exit;
 }
 
-// Načteme aktuální nejvyšší příhoz
+// Načteme aktuálně nejvyšší příhoz
 $stmt = $conn->prepare("SELECT MAX(amount) AS max_bid FROM bids WHERE auction_id = ?");
 $stmt->bind_param("i", $auction_id);
 $stmt->execute();
@@ -102,7 +103,7 @@ $bids_result = $stmt->get_result();
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-success">
   <div class="container">
-    <a class="navbar-brand" href="index.php">🌿 PlantBid</a>
+    <a class="navbar-brand" href="index.php">🪴 PlantBid</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
       aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -110,11 +111,14 @@ $bids_result = $stmt->get_result();
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
         <?php if (isset($_SESSION['user_id'])): ?>
-          <li class="nav-item"><a class="nav-link" href="#">Přihlášen jako <?php echo htmlspecialchars($_SESSION['username']); ?></a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Přihlášen jako <?php echo htmlspecialchars($_SESSION['username']); ?> (<?php echo htmlspecialchars($user_role); ?>)</a></li>
           <li class="nav-item"><a class="nav-link" href="logout.php">Odhlásit se</a></li>
         <?php else: ?>
           <li class="nav-item"><a class="nav-link" href="login.php">Přihlásit se</a></li>
           <li class="nav-item"><a class="nav-link" href="register.php">Registrovat</a></li>
+        <?php endif; ?>
+        <?php if (isset($_SESSION['user_id']) && $user_role === 'admin'): ?>
+          <li class="nav-item"><a class="nav-link" href="admin.php">Admin</a></li>
         <?php endif; ?>
         <li class="nav-item"><a class="nav-link" href="archive.php">Archiv</a></li>
         <li class="nav-item"><a class="nav-link" href="new_auction.php">Přidat aukci</a></li>
@@ -142,7 +146,7 @@ $bids_result = $stmt->get_result();
     <div class="col-md-6">
       <p><?php echo nl2br(htmlspecialchars($auction['description'])); ?></p>
       <p><strong>Startovní cena:</strong> <?php echo number_format($auction['starting_price'], 2, ',', ' '); ?> Kč</p>
-      <p><strong>Aktuální nejvyšší příhoz:</strong> <?php echo number_format($current_max, 2, ',', ' '); ?> Kč</p>
+      <p><strong>Aktuálně nejvyšší příhoz:</strong> <?php echo number_format($current_max, 2, ',', ' '); ?> Kč</p>
       <p><strong>Konec aukce:</strong> <?php echo date('d.m.Y H:i', strtotime($auction['end_time'])); ?></p>
       <p class="text-muted"><strong>Aukci přidal:</strong> <?php echo htmlspecialchars($auction['username']); ?></p>
 
