@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-    <title>PlantBid – Funkèní a technická specifikace</title>
+    <title>PlantBid â€“ FunkÄnÃ­ a technickÃ¡ specifikace</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         :root {
@@ -173,78 +173,73 @@
 <body>
 <header>
     <div class="header-inner">
-        <h1>PlantBid – Funkèní a technická specifikace</h1>
-        <p>Semestrální projekt pro pøedmìt „Tvorba webovıch aplikací“ – aukèní aplikace na rostliny.</p>
+        <h1>PlantBid â€“ FunkÄnÃ­ a technickÃ¡ specifikace</h1>
+        <p>ZÃ¡poÄtovÃ¡ prÃ¡ce - Specifikace</p>
     </div>
 </header>
 
 <main>
     <article class="card">
 
-        <div class="meta-badge">
-            <span>??</span>
-            <span>Specifikace: funkèní + technická</span>
-        </div>
-
-        <h2>1. Úvod</h2>
+        <h2>1. Ãšvod</h2>
         <p>
-            PlantBid je jednoduchá webová aukèní aplikace zamìøená na prodej a nákup rostlin mezi uivateli.
-            Cílem aplikace je umonit:
+            PlantBid je jednoduchÃ¡ webovÃ¡ aukÄnÃ­ aplikace zamÄ›Å™enÃ¡ na prodej a nÃ¡kup rostlin mezi uÅ¾ivateli.
+            CÃ­lem aplikace je umoÅ¾nit:
         </p>
         <ul>
-            <li>vytváøet aukce,</li>
-            <li>procházet aktivní aukce,</li>
-            <li>pøihazovat,</li>
-            <li>sledovat historii pøíhozù.</li>
+            <li>vytvÃ¡Å™et aukce,</li>
+            <li>prochÃ¡zet aktivnÃ­ aukce,</li>
+            <li>pÅ™ihazovat,</li>
+            <li>sledovat historii pÅ™Ã­hozÅ¯.</li>
         </ul>
         <p>
-            Tento dokument obsahuje funkèní a technickou specifikaci pro úèely pøedmìtu
-            <em>Tvorba webovıch aplikací</em>. Projekt vychází z pùvodní databázové aplikace a je rozšíøen tak,
-            aby splnil poadavky zadání.
+            Tento dokument obsahuje funkÄnÃ­ a technickou specifikaci pro ÃºÄely pÅ™edmÄ›tu
+            <em>Tvorba webovÃ½ch aplikacÃ­</em>. Projekt vychÃ¡zÃ­ z pÅ¯vodnÃ­ databÃ¡zovÃ© aplikace a je rozÅ¡Ã­Å™en tak,
+            aby splnil poÅ¾adavky zadÃ¡nÃ­.
         </p>
 
-        <h2>2. Funkèní specifikace</h2>
+        <h2>2. FunkÄnÃ­ specifikace</h2>
 
-        <h3>2.1 Datovı konceptuální model</h3>
+        <h3>2.1 DatovÃ½ konceptuÃ¡lnÃ­ model</h3>
         <p class="section-intro">
-            Aplikace pracuje s nìkolika základními entitami a jejich vztahy.
+            Aplikace pracuje s nÄ›kolika zÃ¡kladnÃ­mi entitami a jejich vztahy.
         </p>
 
         <h4>Entity</h4>
         <ul>
-            <li><strong>Uivatel</strong> – pøihlašovací údaje, role, základní informace.</li>
-            <li><strong>Aukce</strong> – prodávaná rostlina, ceny, èas ukonèení, obrázek.</li>
-            <li><strong>Pøíhoz</strong> – nabídka uivatele v aukci.</li>
-            <li><strong>Kategorie</strong> (volitelné) – tematické zaøazení aukcí.</li>
+            <li><strong>UÅ¾ivatel</strong> â€“ pÅ™ihlaÅ¡ovacÃ­ Ãºdaje, role, zÃ¡kladnÃ­ informace.</li>
+            <li><strong>Aukce</strong> â€“ prodÃ¡vanÃ¡ rostlina, ceny, Äas ukonÄenÃ­, obrÃ¡zek.</li>
+            <li><strong>PÅ™Ã­hoz</strong> â€“ nabÃ­dka uÅ¾ivatele v aukci.</li>
+            <li><strong>Kategorie</strong> (volitelnÃ©) â€“ tematickÃ© zaÅ™azenÃ­ aukcÃ­.</li>
         </ul>
 
         <h4>Vztahy</h4>
         <ul>
-            <li>Uivatel <strong>1:N</strong> Aukce</li>
-            <li>Uivatel <strong>1:N</strong> Pøíhoz</li>
-            <li>Aukce <strong>1:N</strong> Pøíhoz</li>
-            <li>Kategorie <strong>1:N</strong> Aukce (volitelné)</li>
+            <li>UÅ¾ivatel <strong>1:N</strong> Aukce</li>
+            <li>UÅ¾ivatel <strong>1:N</strong> PÅ™Ã­hoz</li>
+            <li>Aukce <strong>1:N</strong> PÅ™Ã­hoz</li>
+            <li>Kategorie <strong>1:N</strong> Aukce (volitelnÃ©)</li>
         </ul>
 
-        <h3>2.2 Charakteristika funkèností</h3>
+        <h3>2.2 Charakteristika funkÄnostÃ­</h3>
         <p class="section-intro">
-            Základní chování aplikace z pohledu uivatele.
+            ZÃ¡kladnÃ­ chovÃ¡nÃ­ aplikace z pohledu uÅ¾ivatele.
         </p>
 
-        <h4>Hlavní funkce</h4>
+        <h4>HlavnÃ­ funkce</h4>
         <ol>
-            <li><strong>Registrace a pøihlášení</strong> – vytvoøení úètu, login, logout.</li>
-            <li><strong>Správa profilu</strong> – základní údaje, pøehled vlastních aukcí a pøíhozù.</li>
-            <li><strong>Procházení a filtrování aukcí</strong> – seznam aktivních aukcí, filtrování, vyhledávání.</li>
-            <li><strong>Zobrazení detailu aukce</strong> – podrobnosti, historie pøíhozù, graf.</li>
-            <li><strong>Pøihazování</strong> – validace vıše pøíhozu, aktualizace aktuální ceny.</li>
-            <li><strong>Zakládání a správa vlastních aukcí</strong> – vytvoøení, úprava, pøípadnì pøedèasné ukonèení.</li>
-            <li><strong>Administrace</strong> – blokace uivatelù, mazání problémovıch aukcí.</li>
+            <li><strong>Registrace a pÅ™ihlÃ¡Å¡enÃ­</strong> â€“ vytvoÅ™enÃ­ ÃºÄtu, login, logout.</li>
+            <li><strong>SprÃ¡va profilu</strong> â€“ zÃ¡kladnÃ­ Ãºdaje, pÅ™ehled vlastnÃ­ch aukcÃ­ a pÅ™Ã­hozÅ¯.</li>
+            <li><strong>ProchÃ¡zenÃ­ a filtrovÃ¡nÃ­ aukcÃ­</strong> â€“ seznam aktivnÃ­ch aukcÃ­, filtrovÃ¡nÃ­, vyhledÃ¡vÃ¡nÃ­.</li>
+            <li><strong>ZobrazenÃ­ detailu aukce</strong> â€“ podrobnosti, historie pÅ™Ã­hozÅ¯, graf.</li>
+            <li><strong>PÅ™ihazovÃ¡nÃ­</strong> â€“ validace vÃ½Å¡e pÅ™Ã­hozu, aktualizace aktuÃ¡lnÃ­ ceny.</li>
+            <li><strong>ZaklÃ¡dÃ¡nÃ­ a sprÃ¡va vlastnÃ­ch aukcÃ­</strong> â€“ vytvoÅ™enÃ­, Ãºprava, pÅ™Ã­padnÄ› pÅ™edÄasnÃ© ukonÄenÃ­.</li>
+            <li><strong>Administrace</strong> â€“ blokace uÅ¾ivatelÅ¯, mazÃ¡nÃ­ problÃ©movÃ½ch aukcÃ­.</li>
         </ol>
 
-        <h3>2.3 Uivatelské role a oprávnìní</h3>
+        <h3>2.3 UÅ¾ivatelskÃ© role a oprÃ¡vnÄ›nÃ­</h3>
         <p class="section-intro">
-            Aplikace rozlišuje tøi základní typy uivatelù a jejich oprávnìní.
+            Aplikace rozliÅ¡uje tÅ™i zÃ¡kladnÃ­ typy uÅ¾ivatelÅ¯ a jejich oprÃ¡vnÄ›nÃ­.
         </p>
 
         <div class="table-wrapper">
@@ -252,14 +247,14 @@
                 <thead>
                 <tr>
                     <th>Funkce</th>
-                    <th>Neregistrovanı</th>
-                    <th>Registrovanı</th>
-                    <th>Administrátor</th>
+                    <th>NeregistrovanÃ½</th>
+                    <th>RegistrovanÃ½</th>
+                    <th>AdministrÃ¡tor</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
-                    <td>Prohlíet aukce</td>
+                    <td>ProhlÃ­Å¾et aukce</td>
                     <td>?</td>
                     <td>?</td>
                     <td>?</td>
@@ -277,31 +272,31 @@
                     <td>?</td>
                 </tr>
                 <tr>
-                    <td>Pøihlásit / odhlásit</td>
+                    <td>PÅ™ihlÃ¡sit / odhlÃ¡sit</td>
                     <td>?</td>
                     <td>?</td>
                     <td>?</td>
                 </tr>
                 <tr>
-                    <td>Pøihazovat</td>
+                    <td>PÅ™ihazovat</td>
                     <td>?</td>
                     <td>?</td>
                     <td>?</td>
                 </tr>
                 <tr>
-                    <td>Vytváøet a spravovat vlastní aukce</td>
+                    <td>VytvÃ¡Å™et a spravovat vlastnÃ­ aukce</td>
                     <td>?</td>
                     <td>?</td>
                     <td>?</td>
                 </tr>
                 <tr>
-                    <td>Mazání cizích aukcí</td>
+                    <td>MazÃ¡nÃ­ cizÃ­ch aukcÃ­</td>
                     <td>?</td>
                     <td>?</td>
                     <td>?</td>
                 </tr>
                 <tr>
-                    <td>Správa uivatelù</td>
+                    <td>SprÃ¡va uÅ¾ivatelÅ¯</td>
                     <td>?</td>
                     <td>?</td>
                     <td>?</td>
@@ -310,22 +305,22 @@
             </table>
         </div>
 
-        <h3>2.4 Uivatelské grafické rozhraní</h3>
+        <h3>2.4 UÅ¾ivatelskÃ© grafickÃ© rozhranÃ­</h3>
         <p class="section-intro">
-            Pøehled hlavních obrazovek aplikace.
+            PÅ™ehled hlavnÃ­ch obrazovek aplikace.
         </p>
 
         <ul>
-            <li><strong>Domovská stránka</strong> – seznam aktivních aukcí, základní filtry, vyhledávání.</li>
-            <li><strong>Detail aukce</strong> – informace o rostlinì, historie pøíhozù, graf vıvoje ceny (Canvas).</li>
-            <li><strong>Pøihlášení / registrace</strong> – formuláøe s validací.</li>
-            <li><strong>Profil uivatele</strong> – vlastní aukce, pøíhozy, oblíbené aukce (uloené v <code>localStorage</code>).</li>
-            <li><strong>Administrace</strong> – seznam uivatelù a aukcí, základní moderace.</li>
+            <li><strong>DomovskÃ¡ strÃ¡nka</strong> â€“ seznam aktivnÃ­ch aukcÃ­, zÃ¡kladnÃ­ filtry, vyhledÃ¡vÃ¡nÃ­.</li>
+            <li><strong>Detail aukce</strong> â€“ informace o rostlinÄ›, historie pÅ™Ã­hozÅ¯, graf vÃ½voje ceny (Canvas).</li>
+            <li><strong>PÅ™ihlÃ¡Å¡enÃ­ / registrace</strong> â€“ formulÃ¡Å™e s validacÃ­.</li>
+            <li><strong>Profil uÅ¾ivatele</strong> â€“ vlastnÃ­ aukce, pÅ™Ã­hozy, oblÃ­benÃ© aukce (uloÅ¾enÃ© v <code>localStorage</code>).</li>
+            <li><strong>Administrace</strong> â€“ seznam uÅ¾ivatelÅ¯ a aukcÃ­, zÃ¡kladnÃ­ moderace.</li>
         </ul>
 
-        <h2>3. Technická specifikace</h2>
+        <h2>3. TechnickÃ¡ specifikace</h2>
 
-        <h3>3.1 Datovı logickı model</h3>
+        <h3>3.1 DatovÃ½ logickÃ½ model</h3>
 
         <h4>Tabulka <code>users</code></h4>
         <ul>
@@ -346,7 +341,7 @@
             <li><code>image</code></li>
             <li><code>starting_price</code></li>
             <li><code>current_price</code></li>
-            <li><code>category_id</code> (FK, volitelné)</li>
+            <li><code>category_id</code> (FK, volitelnÃ©)</li>
             <li><code>status</code> (active/ended/cancelled)</li>
             <li><code>end_time</code></li>
             <li><code>created_at</code></li>
@@ -361,7 +356,7 @@
             <li><code>bid_time</code></li>
         </ul>
 
-        <h4>Tabulka <code>categories</code> (volitelné)</h4>
+        <h4>Tabulka <code>categories</code> (volitelnÃ©)</h4>
         <ul>
             <li><code>id</code> (PK)</li>
             <li><code>name</code></li>
@@ -370,21 +365,21 @@
 
         <h3>3.2 Architektura</h3>
         <p>
-            Aplikace pouívá klasické rozdìlení <strong>klient – server</strong>.
+            Aplikace pouÅ¾Ã­vÃ¡ klasickÃ© rozdÄ›lenÃ­ <strong>klient â€“ server</strong>.
         </p>
 
         <h4>Klient</h4>
         <ul>
-            <li>HTML5 (šablony, formuláøe)</li>
+            <li>HTML5 (Å¡ablony, formulÃ¡Å™e)</li>
             <li>CSS3 (vzhled, responzivita)</li>
             <li>
                 JavaScript (ES6):
                 <ul>
-                    <li><code>fetch</code> API pro naèítání JSON dat,</li>
-                    <li>odpoèet èasu do konce aukce,</li>
-                    <li>filtrace a øazení aukcí,</li>
-                    <li><code>localStorage</code> pro oblíbené aukce,</li>
-                    <li>HTML5 Canvas pro graf historie pøíhozù.</li>
+                    <li><code>fetch</code> API pro naÄÃ­tÃ¡nÃ­ JSON dat,</li>
+                    <li>odpoÄet Äasu do konce aukce,</li>
+                    <li>filtrace a Å™azenÃ­ aukcÃ­,</li>
+                    <li><code>localStorage</code> pro oblÃ­benÃ© aukce,</li>
+                    <li>HTML5 Canvas pro graf historie pÅ™Ã­hozÅ¯.</li>
                 </ul>
             </li>
         </ul>
@@ -392,21 +387,21 @@
         <h4>Server</h4>
         <ul>
             <li>PHP 8+ s OOP architekturou,</li>
-            <li>repozitáøe pro práci s databází,</li>
+            <li>repozitÃ¡Å™e pro prÃ¡ci s databÃ¡zÃ­,</li>
             <li>REST-like endpointy <code>/api/*</code>,</li>
             <li>PDO pro komunikaci s MySQL.</li>
         </ul>
 
-        <h4>Databáze</h4>
+        <h4>DatabÃ¡ze</h4>
         <ul>
-            <li>MySQL s tabulkami <code>users</code>, <code>auctions</code>, <code>bids</code>, pøípadnì <code>categories</code>.</li>
+            <li>MySQL s tabulkami <code>users</code>, <code>auctions</code>, <code>bids</code>, pÅ™Ã­padnÄ› <code>categories</code>.</li>
         </ul>
 
-        <h3>3.3 Popis tøíd</h3>
+        <h3>3.3 Popis tÅ™Ã­d</h3>
 
         <h4><code>Database</code></h4>
         <ul>
-            <li>Správa PDO pøipojení k databázi.</li>
+            <li>SprÃ¡va PDO pÅ™ipojenÃ­ k databÃ¡zi.</li>
         </ul>
 
         <h4><code>User</code></h4>
@@ -417,7 +412,7 @@
 
         <h4><code>Auction</code></h4>
         <ul>
-            <li>Atributy: <code>id</code>, <code>owner</code>, <code>title</code>, <code>description</code>, ceny, èasy, <code>status</code>.</li>
+            <li>Atributy: <code>id</code>, <code>owner</code>, <code>title</code>, <code>description</code>, ceny, Äasy, <code>status</code>.</li>
             <li>Metody: <code>isActive()</code>, <code>getTimeRemaining()</code>, <code>raisePrice()</code>.</li>
         </ul>
 
@@ -426,40 +421,35 @@
             <li>Atributy: <code>id</code>, <code>auction</code>, <code>user</code>, <code>amount</code>, <code>time</code>.</li>
         </ul>
 
-        <h4>Repozitáøe</h4>
+        <h4>RepozitÃ¡Å™e</h4>
         <ul>
-            <li><strong>UserRepository</strong> – práce s uivateli.</li>
-            <li><strong>AuctionRepository</strong> – získávání a ukládání aukcí.</li>
-            <li><strong>BidRepository</strong> – pøíhozy a jejich historie.</li>
+            <li><strong>UserRepository</strong> â€“ prÃ¡ce s uÅ¾ivateli.</li>
+            <li><strong>AuctionRepository</strong> â€“ zÃ­skÃ¡vÃ¡nÃ­ a uklÃ¡dÃ¡nÃ­ aukcÃ­.</li>
+            <li><strong>BidRepository</strong> â€“ pÅ™Ã­hozy a jejich historie.</li>
         </ul>
 
         <h4>Servisy</h4>
         <ul>
-            <li><code>AuthService</code> – login, logout, správa session.</li>
-            <li><code>BidService</code> – validace a provedení pøíhozù.</li>
+            <li><code>AuthService</code> â€“ login, logout, sprÃ¡va session.</li>
+            <li><code>BidService</code> â€“ validace a provedenÃ­ pÅ™Ã­hozÅ¯.</li>
         </ul>
 
-        <h3>3.4 Pouité technologie</h3>
+        <h3>3.4 PouÅ¾itÃ© technologie</h3>
         <ul>
-            <li>HTML5</li>
-            <li>CSS3</li>
-            <li>JavaScript (ES6+)</li>
-            <li>Canvas / Chart.js pro grafy</li>
-            <li>PHP 8+</li>
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>JavaScript</li>
+            <li>PHP</li>
             <li>MySQL</li>
-            <li>Git pro verzování</li>
+            <li>Git pro verzovÃ¡nÃ­</li>
         </ul>
 
-        <h2>4. Vıstup aplikace</h2>
+        <h2>4. VÃ½stup aplikace</h2>
         <p>
-            Aplikace bude publikována na webovém hostingu a její zdrojovı kód bude dostupnı v Git
-            repozitáøi. Tento dokument slouí jako základní pøehled funkèních a technickıch poadavkù.
+            Aplikace bude publikovÃ¡na na webovÃ©m hostingu a jejÃ­ zdrojovÃ½ kÃ³d bude dostupnÃ½ v Git
+            repozitÃ¡Å™i. Tento dokument slouÅ¾Ã­ jako zÃ¡kladnÃ­ pÅ™ehled funkÄnÃ­ch a technickÃ½ch poÅ¾adavkÅ¯.
         </p>
 
-        <p class="footer-note">
-            Tip: Tento soubor lze pouít pøímo jako jednoduchou prezentaèní stránku specifikace projektu
-            (napø. v rootu repozitáøe jako <code>spec.html</code> nebo <code>index.html</code>).
-        </p>
     </article>
 </main>
 </body>
