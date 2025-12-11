@@ -193,8 +193,7 @@
         </ul>
         <p>
             Tento dokument obsahuje funkční a technickou specifikaci pro účely předmětu
-            <em>Tvorba webových aplikací</em>. Projekt vychází z původní databázové aplikace a je rozšířen tak,
-            aby splnil požadavky zadání.
+            <em>Tvorba webových aplikací</em>. 
         </p>
 
         <h2>2. Funkční specifikace</h2>
@@ -368,40 +367,6 @@
             <li><code>slug</code></li>
         </ul>
 
-        <h3>3.2 Architektura</h3>
-        <p>
-            Aplikace používá klasické rozdělení <strong>klient – server</strong>.
-        </p>
-
-        <h4>Klient</h4>
-        <ul>
-            <li>HTML5 (šablony, formuláře)</li>
-            <li>CSS3 (vzhled, responzivita)</li>
-            <li>
-                JavaScript (ES6):
-                <ul>
-                    <li><code>fetch</code> API pro načítání JSON dat,</li>
-                    <li>odpočet času do konce aukce,</li>
-                    <li>filtrace a řazení aukcí,</li>
-                    <li><code>localStorage</code> pro oblíbené aukce,</li>
-                    <li>HTML5 Canvas pro graf historie příhozů.</li>
-                </ul>
-            </li>
-        </ul>
-
-        <h4>Server</h4>
-        <ul>
-            <li>PHP 8+ s OOP architekturou,</li>
-            <li>repozitáře pro práci s databází,</li>
-            <li>REST-like endpointy <code>/api/*</code>,</li>
-            <li>PDO pro komunikaci s MySQL.</li>
-        </ul>
-
-        <h4>Databáze</h4>
-        <ul>
-            <li>MySQL s tabulkami <code>users</code>, <code>auctions</code>, <code>bids</code>, případně <code>categories</code>.</li>
-        </ul>
-
         <h3>3.3 Popis tříd</h3>
 
         <h4><code>Database</code></h4>
@@ -424,19 +389,6 @@
         <h4><code>Bid</code></h4>
         <ul>
             <li>Atributy: <code>id</code>, <code>auction</code>, <code>user</code>, <code>amount</code>, <code>time</code>.</li>
-        </ul>
-
-        <h4>Repozitáře</h4>
-        <ul>
-            <li><strong>UserRepository</strong> – práce s uživateli.</li>
-            <li><strong>AuctionRepository</strong> – získávání a ukládání aukcí.</li>
-            <li><strong>BidRepository</strong> – příhozy a jejich historie.</li>
-        </ul>
-
-        <h4>Servisy</h4>
-        <ul>
-            <li><code>AuthService</code> – login, logout, správa session.</li>
-            <li><code>BidService</code> – validace a provedení příhozů.</li>
         </ul>
 
         <h3>3.4 Použité technologie</h3>
