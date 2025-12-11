@@ -1,18 +1,11 @@
 <?php
 $host = 'localhost';
-$db   = 'plantbid';
-$user = 'root';
-$pass = '';
-$charset = 'utf8mb4';
+$port = 3306;
+$user = 'vodrazkpat';
+$pass = 'KR@ken-8.2.2004';
+$db = 'vodrazkpat';
 
-$dsn = "mysql:host=$host;dbname=$db;charset=$charset";
-$options = [
-    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-];
+$conn = new mysqli($host, $user, $pass, $db, $port);
+if ($conn->connect_error) die("Pøipojení selhalo: " . $conn->connect_error);
 
-try {
-     $pdo = new PDO($dsn, $user, $pass, $options);
-} catch (PDOException $e) {
-     throw new PDOException($e->getMessage(), (int)$e->getCode());
-}
+?>
