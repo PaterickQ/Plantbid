@@ -6,6 +6,8 @@ error_reporting(E_ALL);
 session_start();
 require_once 'includes/db.php';
 
+$user_role = $_SESSION['role'] ?? 'user';
+
 $sql = "
 SELECT a.*, 
        u.username, 

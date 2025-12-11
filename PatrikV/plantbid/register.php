@@ -8,6 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = trim($_POST["email"] ?? '');
     $password = $_POST["password"] ?? '';
     $captcha = trim($_POST["captcha"] ?? '');
+    $role = 'user';
 
     if ($captcha !== '8') {
         $error = "Ověření selhalo. Napiš správný výsledek příkladu.";
@@ -29,8 +30,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             // Vložíme nového uživatele
             $password_hash = password_hash($password, PASSWORD_DEFAULT);
-            $stmt = $conn->prepare("INSERT INTO users (username, email, password_hash) VALUES (?, ?, ?)");
-            $stmt->bind_param("sss", $username, $email, $password_hash);
+            $stmt = $conn->prepare("INSERT INTO users (username, email, password_hash, role) VALUES (?, ?, ?, ?)");
+            $stmt->bind_param("ssss", $username, $email, $password_hash, $role);
             if ($stmt->execute()) {
                 header("Location: login.php");
                 exit;

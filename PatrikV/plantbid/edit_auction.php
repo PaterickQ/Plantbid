@@ -7,12 +7,19 @@ if (!isset($_SESSION['user_id'])) {
   exit;
 }
 
-$id = $_GET['id'] ?? 0;
+$id = (int)($_GET['id'] ?? 0);
 $user_id = $_SESSION['user_id'];
+$user_role = $_SESSION['role'] ?? 'user';
+$is_admin = $user_role === 'admin';
 
-// Získání aukce
-$stmt = $conn->prepare("SELECT * FROM auctions WHERE id = ? AND user_id = ?");
-$stmt->bind_param("ii", $id, $user_id);
+// Získání aukce (admin může upravit libovolnou)
+if ($is_admin) {
+  $stmt = $conn->prepare("SELECT * FROM auctions WHERE id = ?");
+  $stmt->bind_param("i", $id);
+} else {
+  $stmt = $conn->prepare("SELECT * FROM auctions WHERE id = ? AND user_id = ?");
+  $stmt->bind_param("ii", $id, $user_id);
+}
 $stmt->execute();
 $result = $stmt->get_result();
 $auction = $result->fetch_assoc();
@@ -44,8 +51,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $image_path = $_POST['image_url'];
   }
 
-  $stmt = $conn->prepare("UPDATE auctions SET title = ?, description = ?, image_path = ? WHERE id = ? AND user_id = ?");
-  $stmt->bind_param("sssii", $title, $description, $image_path, $id, $user_id);
+  if ($is_admin) {
+    $stmt = $conn->prepare("UPDATE auctions SET title = ?, description = ?, image_path = ? WHERE id = ?");
+    $stmt->bind_param("sssi", $title, $description, $image_path, $id);
+  } else {
+    $stmt = $conn->prepare("UPDATE auctions SET title = ?, description = ?, image_path = ? WHERE id = ? AND user_id = ?");
+    $stmt->bind_param("sssii", $title, $description, $image_path, $id, $user_id);
+  }
   $stmt->execute();
 
   header("Location: my_auctions.php");
@@ -64,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-success">
   <div class="container">
-    <a class="navbar-brand" href="index.php">🌿 PlantBid</a>
+    <a class="navbar-brand" href="index.php">🪴 PlantBid</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
       aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -72,7 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
         <?php if (isset($_SESSION['user_id'])): ?>
-          <li class="nav-item"><a class="nav-link" href="#">Přihlášen jako <?php echo htmlspecialchars($_SESSION['username']); ?></a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Přihlášen jako <?php echo htmlspecialchars($_SESSION['username']); ?> (<?php echo htmlspecialchars($user_role); ?>)</a></li>
           <li class="nav-item"><a class="nav-link" href="logout.php">Odhlásit se</a></li>
         <?php else: ?>
           <li class="nav-item"><a class="nav-link" href="login.php">Přihlásit se</a></li>

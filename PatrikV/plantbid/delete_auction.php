@@ -7,12 +7,21 @@ if (!isset($_SESSION['user_id'])) {
   exit;
 }
 
-$id = $_GET['id'] ?? 0;
+$id = (int)($_GET['id'] ?? 0);
 $user_id = $_SESSION['user_id'];
+$is_admin = isset($_SESSION['role']) && $_SESSION['role'] === 'admin';
+$redirect = $_GET['redirect'] ?? '';
 
-$stmt = $conn->prepare("DELETE FROM auctions WHERE id = ? AND user_id = ?");
-$stmt->bind_param("ii", $id, $user_id);
+if ($is_admin) {
+  $stmt = $conn->prepare("DELETE FROM auctions WHERE id = ?");
+  $stmt->bind_param("i", $id);
+} else {
+  $stmt = $conn->prepare("DELETE FROM auctions WHERE id = ? AND user_id = ?");
+  $stmt->bind_param("ii", $id, $user_id);
+}
 $stmt->execute();
 
-header("Location: my_auctions.php");
+$safeRedirects = ['admin.php', 'my_auctions.php'];
+$target = in_array($redirect, $safeRedirects, true) ? $redirect : 'my_auctions.php';
+header("Location: " . $target);
 exit;
