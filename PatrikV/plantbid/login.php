@@ -28,7 +28,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->execute();
         $result = $stmt->get_result();
         if ($user = $result->fetch_assoc()) {
-            if (password_verify($password, $user["password_hash"])) {
+            if (!empty($user['blocked'])) {
+                $error = "Účet je zablokovaný. Kontaktujte administrátora.";
+            } elseif (password_verify($password, $user["password_hash"])) {
                 $_SESSION["user_id"] = $user["id"];
                 $_SESSION["username"] = $user["username"];
                 $_SESSION["role"] = $user["role"] ?? 'user';
