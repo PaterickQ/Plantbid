@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <title>PlantBid – Funkční a technická specifikace</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        :root {
+            --bg: #f5f7fa;
+            --card-bg: #ffffff;
+            --primary: #2e7d32;
+            --primary-soft: #e8f5e9;
+            --accent: #66bb6a;
+            --text: #1f2933;
+            --muted: #6b7280;
+            --border: #e0e7ff;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: #fff;
+            padding: 1.5rem 1rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.18);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-inner {
+            max-width: 960px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .header-inner h1 {
+            margin: 0;
+            font-size: 1.8rem;
+        }
+
+        .header-inner p {
+            margin: 0;
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        main {
+            max-width: 960px;
+            margin: 1.5rem auto 2.5rem;
+            padding: 0 1rem 2rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: 0 10px 30px rgba(15,23,42,0.08);
+            border: 1px solid var(--border);
+        }
+
+        .meta-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: var(--primary-soft);
+            color: var(--primary);
+            border-radius: 999px;
+            padding: 0.25rem 0.75rem;
+            font-size: 0.8rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .meta-badge span {
+            font-size: 0.9rem;
+        }
+
+        h2, h3, h4 {
+            color: #111827;
+            margin-top: 1.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        h2 {
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.35rem;
+        }
+
+        h3 {
+            margin-top: 1.5rem;
+        }
+
+        p {
+            margin: 0.4rem 0 0.6rem;
+        }
+
+        ul, ol {
+            margin: 0.3rem 0 0.8rem 1.25rem;
+            padding-left: 1rem;
+        }
+
+        li {
+            margin: 0.15rem 0;
+        }
+
+        .section-intro {
+            font-size: 0.95rem;
+            color: var(--muted);
+            margin-bottom: 0.75rem;
+        }
+
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            margin: 0.75rem 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        th, td {
+            padding: 0.4rem 0.6rem;
+            border: 1px solid var(--border);
+            text-align: left;
+        }
+
+        th {
+            background: #f9fafb;
+            font-weight: 600;
+        }
+
+        code {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            font-size: 0.9rem;
+            background: #f3f4f6;
+            padding: 0.1rem 0.3rem;
+            border-radius: 0.25rem;
+        }
+
+        .footer-note {
+            margin-top: 2rem;
+            font-size: 0.8rem;
+            color: var(--muted);
+            border-top: 1px dashed var(--border);
+            padding-top: 0.75rem;
+        }
+
+        @media (max-width: 640px) {
+            .card {
+                padding: 1.25rem;
+            }
+
+            .header-inner h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="header-inner">
+        <h1>PlantBid – Funkční a technická specifikace</h1>
+        <p>Zápočtová práce - Specifikace</p>
+    </div>
+</header>
+
+<main>
+    <article class="card">
+        <h2>1. Úvod</h2>
+        <p>
+            PlantBid je jednoduchá webová aukční aplikace zaměřená na prodej a nákup rostlin mezi uživateli.
+            Cílem aplikace je umožnit:
+        </p>
+        <ul>
+            <li>vytvářet aukce,</li>
+            <li>procházet aktivní aukce,</li>
+            <li>přihazovat,</li>
+            <li>sledovat historii příhozů.</li>
+        </ul>
+        <p>
+            Tento dokument obsahuje funkční a technickou specifikaci pro účely předmětu
+            <em>Tvorba webových aplikací</em>. 
+        </p>
+
+        <h2>2. Funkční specifikace</h2>
+
+        <h3>2.1 Datový konceptuální model</h3>
+        <p class="section-intro">
+            Aplikace pracuje s několika základními entitami a jejich vztahy.
+        </p>
+
+        <h4>Entity</h4>
+        <ul>
+            <li><strong>Uživatel</strong> – přihlašovací údaje, role, základní informace.</li>
+            <li><strong>Aukce</strong> – prodávaná rostlina, ceny, čas ukončení, obrázek.</li>
+            <li><strong>Příhoz</strong> – nabídka uživatele v aukci.</li>
+            <li><strong>Kategorie</strong> (volitelné) – tematické zařazení aukcí.</li>
+        </ul>
+
+        <h4>Vztahy</h4>
+        <ul>
+            <li>Uživatel <strong>1:N</strong> Aukce</li>
+            <li>Uživatel <strong>1:N</strong> Příhoz</li>
+            <li>Aukce <strong>1:N</strong> Příhoz</li>
+            <li>Kategorie <strong>1:N</strong> Aukce (volitelné)</li>
+        </ul>
+
+        <h3>2.2 Charakteristika funkčností</h3>
+        <p class="section-intro">
+            Základní chování aplikace z pohledu uživatele.
+        </p>
+
+        <h4>Hlavní funkce</h4>
+        <ol>
+            <li><strong>Registrace a přihlášení</strong> – vytvoření účtu, login, logout.</li>
+            <li><strong>Správa profilu</strong> – základní údaje, přehled vlastních aukcí a příhozů.</li>
+            <li><strong>Procházení a filtrování aukcí</strong> – seznam aktivních aukcí, filtrování, vyhledávání.</li>
+            <li><strong>Zobrazení detailu aukce</strong> – podrobnosti, historie příhozů, graf.</li>
+            <li><strong>Přihazování</strong> – validace výše příhozu, aktualizace aktuální ceny.</li>
+            <li><strong>Zakládání a správa vlastních aukcí</strong> – vytvoření, úprava, případně předčasné ukončení.</li>
+            <li><strong>Administrace</strong> – blokace uživatelů, mazání problémových aukcí.</li>
+        </ol>
+
+        <h3>2.3 Uživatelské role a oprávnění</h3>
+        <p class="section-intro">
+            Aplikace rozlišuje tři základní typy uživatelů a jejich oprávnění.
+        </p>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                <tr>
+                    <th>Funkce</th>
+                    <th>Neregistrovaný</th>
+                    <th>Registrovaný</th>
+                    <th>Administrátor</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Prohlížet aukce</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                </tr>
+                <tr> 
+                    <td>Zobrazit detail</td>
+                    <td></td>
+                    <td>X</td>
+                    <td>X</td>
+                </tr>
+                <tr>
+                    <td>Registrovat se</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                </tr>
+                <tr>
+                    <td>Přihazovat</td>
+                    <td></td>
+                    <td>X</td>
+                    <td>X</td>
+                </tr>
+                <tr>
+                    <td>Vytvářet a spravovat vlastní aukce</td>
+                    <td></td>
+                    <td>X</td>
+                    <td>X</td>
+                </tr>
+                <tr>
+                    <td>Mazání cizích aukcí</td>
+                    <td></td>
+                    <td></td>
+                    <td>X</td>
+                </tr>
+                <tr>
+                    <td>Správa uživatelů</td>
+                    <td></td>
+                    <td></td>
+                    <td>X</td>
+                </tr>
+                <tr>
+                    <td>Zobrazení komentářů</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                </tr>
+                <tr>
+                    <td>Psaní komentáře</td>
+                    <td></td>
+                    <td>X</td>
+                    <td>X</td>
+                </tr>
+                <tr>
+                    <td>Mazání komentářů</td>
+                    <td></td>
+                    <td></td>
+                    <td>X</td>
+                </tr>
+                <tr>
+                    <td>Archiv</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3>2.4 Uživatelské grafické rozhraní</h3>
+        <p class="section-intro">
+            Přehled hlavních obrazovek aplikace.
+        </p>
+
+        <ul>
+            <li><strong>Domovská stránka</strong> – seznam aktivních aukcí, základní filtry, vyhledávání.</li>
+            <li><strong>Detail aukce</strong> – informace o rostlině, historie příhozů, graf vývoje ceny (Canvas).</li>
+            <li><strong>Přihlášení / registrace</strong> – formuláře s validací.</li>
+            <li><strong>Profil uživatele</strong> – vlastní aukce, příhozy, oblíbené aukce (uložené v <code>localStorage</code>).</li>
+            <li><strong>Administrace</strong> – seznam uživatelů a aukcí, základní moderace.</li>
+        </ul>
+
+        <h2>3. Technická specifikace</h2>
+
+        <h3>3.1 Datový logický model</h3>
+
+        <h4>Tabulka <code>users</code></h4>
+        <ul>
+            <li><code>id</code> (PK)</li>
+            <li><code>username</code></li>
+            <li><code>email</code></li>
+            <li><code>password</code></li>
+            <li><code>role</code> (user/admin)</li>
+            <li><code>created_at</code></li>
+        </ul>
+
+        <h4>Tabulka <code>auctions</code></h4>
+        <ul>
+            <li><code>id</code> (PK)</li>
+            <li><code>user_id</code> (FK)</li>
+            <li><code>title</code></li>
+            <li><code>description</code></li>
+            <li><code>image</code></li>
+            <li><code>starting_price</code></li>
+            <li><code>current_price</code></li>
+            <li><code>category_id</code> (FK, volitelné)</li>
+            <li><code>status</code> (active/ended/cancelled)</li>
+            <li><code>end_time</code></li>
+            <li><code>created_at</code></li>
+        </ul>
+
+        <h4>Tabulka <code>bids</code></h4>
+        <ul>
+            <li><code>id</code> (PK)</li>
+            <li><code>auction_id</code> (FK)</li>
+            <li><code>user_id</code> (FK)</li>
+            <li><code>bid_amount</code></li>
+            <li><code>bid_time</code></li>
+        </ul>
+        <h4>Tabulka <code>comments</code></h4>
+        <ul>
+            <li><code>id</code> (PK)</li>
+            <li><code>auction_id</code> (FK)</li>
+            <li><code>user_id</code> (FK)</li>
+            <li><code>content</code></li>
+            <li><code>created_at</code></li>
+        </ul>
+
+        <h3>3.3 Popis tříd</h3>
+
+        <h4><code>Database</code></h4>
+        <ul>
+            <li>Správa PDO připojení k databázi.</li>
+        </ul>
+
+        <h4><code>User</code></h4>
+        <ul>
+            <li>Atributy: <code>id</code>, <code>username</code>, <code>email</code>, <code>passwordHash</code>, <code>role</code>.</li>
+            <li>Metody: gettery, <code>isAdmin()</code>.</li>
+        </ul>
+
+        <h4><code>Auction</code></h4>
+        <ul>
+            <li>Atributy: <code>id</code>, <code>owner</code>, <code>title</code>, <code>description</code>, ceny, časy, <code>status</code>.</li>
+            <li>Metody: <code>isActive()</code>, <code>getTimeRemaining()</code>, <code>raisePrice()</code>.</li>
+        </ul>
+
+        <h4><code>Bid</code></h4>
+        <ul>
+            <li>Atributy: <code>id</code>, <code>auction</code>, <code>user</code>, <code>amount</code>, <code>time</code>.</li>
+        </ul>
+
+        <h3>3.4 Použité technologie</h3>
+        <ul>
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>JavaScript</li>
+            <li>PHP</li>
+            <li>MySQL</li>
+            <li>Git pro verzování</li>
+        </ul>
+
+        <h2>4. Výstup aplikace</h2>
+        <p>
+            Aplikace bude publikována na webovém hostingu a její zdrojový kód bude dostupný v Git
+            repozitáři. Tento dokument slouží jako základní přehled funkčních a technických požadavků.
+        </p>
+
+    </article>
+</main>
+</body>
+</html>
