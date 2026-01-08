@@ -38,6 +38,3 @@ Routy jsou definované v `plantbid/config/routes.php`. Výchozí režim použív
 ## LocalStorage
 Oblíbené aukce se ukládají pod klíčem `plantbid.favorites`.
 
-## Poznámky
-- Statické soubory se nacházejí v `plantbid/public/assets` a `plantbid/public/uploads`.
-- Původní page-per-script verze je archivovaná v `plantbid/legacy`.
