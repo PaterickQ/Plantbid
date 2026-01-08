@@ -1,0 +1,40 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0 20px;
+  background-color: #f8f8f8;
+}
+
+h1 {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.auction {
+  background-color: #fff;
+  padding: 15px;
+  margin: 15px auto;
+  border-radius: 8px;
+  max-width: 600px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+}
+
+footer {
+  text-align: center;
+  padding: 15px;
+  background: #222;
+  color: white;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.truncate-description {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: 4.5em;
+}
+
