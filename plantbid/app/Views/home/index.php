@@ -27,7 +27,7 @@
                                     </a>
                                 </h5>
                                 <button type="button" class="btn btn-sm btn-outline-warning favorite-toggle" data-auction-id="<?php echo (int) $row['id']; ?>">
-                                    ☆
+                                    &#9734;
                                 </button>
                             </div>
                             <p class="card-text">

@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.favorite-toggle').forEach((btn) => {
       const id = parseInt(btn.dataset.auctionId, 10);
       const active = isFavorite(id, ids);
-      btn.textContent = active ? '★' : '☆';
+      btn.innerHTML = active ? '&#9733;' : '&#9734;';
       btn.classList.toggle('btn-warning', active);
       btn.classList.toggle('btn-outline-warning', !active);
     });
@@ -91,15 +91,21 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="card h-100 shadow-sm">
               <img src="${imgSrc}" class="card-img-top" alt="Obrazek" style="height:200px; object-fit:cover;">
               <div class="card-body d-flex flex-column">
-                <h5 class="card-title">
-                  <a href="${buildAuctionUrl(item.id)}">${item.title}</a>
-                </h5>
+                <div class="d-flex justify-content-between align-items-start">
+                  <h5 class="card-title">
+                    <a href="${buildAuctionUrl(item.id)}">${item.title}</a>
+                  </h5>
+                  <button type="button" class="btn btn-sm btn-outline-warning favorite-toggle" data-auction-id="${item.id}">
+                    &#9734;
+                  </button>
+                </div>
                 <p class="mt-auto fw-bold">Aktualni cena: ${Number(item.current_price).toFixed(2)} Kc</p>
               </div>
             </div>
           `;
           container.appendChild(col);
         });
+        updateButtons();
       })
       .catch(() => {
         container.innerHTML = '';

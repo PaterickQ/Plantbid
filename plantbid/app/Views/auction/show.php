@@ -13,7 +13,12 @@ if (!empty($auction['image_url'])) {
 }
 ?>
 <div class="container py-5">
-    <h1 class="mb-4"><?php echo e($auction['title']); ?></h1>
+    <div class="d-flex align-items-center justify-content-between mb-4">
+        <h1 class="mb-0"><?php echo e($auction['title']); ?></h1>
+        <button type="button" class="btn btn-sm btn-outline-warning favorite-toggle" data-auction-id="<?php echo (int) $auction['id']; ?>">
+            &#9734;
+        </button>
+    </div>
 
     <div class="row mb-4">
         <div class="col-md-6">
